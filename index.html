@@ -8,9 +8,18 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
+            margin: 0;
+            padding: 0;
             background-color: #121212;
             color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+            margin-top: 80px;
+            padding: 20px;
         }
         .btn {
             display: inline-block;
@@ -22,19 +31,42 @@
             border-radius: 8px;
             font-weight: bold;
             transition: background 0.3s;
+            margin-top: 20px;
         }
         .btn:hover {
             background-color: #e02454;
+        }
+        footer {
+            padding: 20px;
+            background-color: #1a1a1a;
+            font-size: 14px;
+        }
+        footer a {
+            color: #aaaaaa;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <h1>Открыть профиль на WildGrl</h1>
-    <p>Нажмите на кнопку ниже, чтобы перейти к общению с AI-персонажем:</p>
-    
-    <!-- Ссылка на конкретную страницу сайта -->
-    <a href="https://wildgrl.space/p/x-go6mmb1jg" class="btn" target="_blank">Перейти к персонажу</a>
+    <div class="content">
+        <h1>Открыть профиль на WildGrl</h1>
+        <p>Нажмите на кнопку ниже, чтобы перейти к общению с AI-персонажем:</p>
+        
+        <!-- Основная кнопка перехода -->
+        <a href="https://wildgrl.space" class="btn" target="_blank">Перейти к персонажу</a>
+    </div>
+
+    <!-- Подвал страницы со служебными ссылками -->
+    <footer>
+        <a href="#" target="_blank">Политика конфиденциальности</a>
+        <a href="#" target="_blank">Условия использования</a>
+    </footer>
 
 </body>
 </html>
