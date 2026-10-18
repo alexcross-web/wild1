@@ -20,6 +20,7 @@
             flex: 1;
             margin-top: 80px;
             padding: 20px;
+            display: none; /* Скрыто изначально для демонстрации загрузки */
         }
         h1 {
             font-size: 28px;
@@ -45,6 +46,46 @@
         .btn:hover {
             background-color: #e02454;
         }
+        
+        /* Стили для сообщения об ошибке сети */
+        .error-message {
+            display: none;
+            color: #ff4a4a;
+            background-color: #241414;
+            border: 1px solid #ff4a4a;
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 20px auto;
+            font-weight: bold;
+        }
+
+        /* Анимированный прелоадер */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid #ff3366;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         footer {
             padding: 20px;
             background-color: #1a1a1a;
@@ -62,19 +103,57 @@
 </head>
 <body>
 
-    <div class="content">
-        <!-- Новый заголовок -->
-        <h1>Виртуальная Девушка: ИИ Чат</h1>
-        <p>Нажмите на кнопку ниже, чтобы перейти к общению в чате:</p>
-        
-        <!-- Основная кнопка перехода -->
-        <a href="https://wildgrl.space" class="btn" target="_blank">Перейти к персонажу</a>
+    <!-- Элемент анимированной загрузки -->
+    <div class="loader-container" id="loader">
+        <div class="spinner"></div>
     </div>
 
-    <!-- Подвал страницы -->
+    <div class="content" id="main-content">
+        <h1>Виртуальная Девушка: ИИ Чат</h1>
+        <p id="sub-text">Нажмите на кнопку ниже, чтобы перейти к общению в чате:</p>
+        
+        <!-- Сообщение об ошибке (показывается только если нет интернета) -->
+        <div class="error-message" id="network-error">
+            ⚠️ Отсутствует подключение к интернету. Проверьте сеть.
+        </div>
+
+        <!-- Основная кнопка перехода -->
+        <a href="https://wildgrl.space" class="btn" id="chat-btn" target="_blank">Перейти к персонажу</a>
+    </div>
+
     <footer>
         <a href="#" target="_blank">Политика конфиденциальности</a>
     </footer>
 
+    <script>
+        // Функция скрытия анимации загрузки и проверки сети
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                checkNetworkStatus();
+            }, 1500); // 1.5 секунды анимации загрузки
+        });
+
+        const chatBtn = document.getElementById('chat-btn');
+        const errorMsg = document.getElementById('network-error');
+        const subText = document.getElementById('sub-text');
+
+        function checkNetworkStatus() {
+            if (navigator.onLine) {
+                chatBtn.style.display = 'inline-block';
+                subText.style.display = 'block';
+                errorMsg.style.display = 'none';
+            } else {
+                chatBtn.style.display = 'none';
+                subText.style.display = 'none';
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // Отслеживание изменений статуса сети в реальном времени
+        window.addEventListener('online', checkNetworkStatus);
+        window.addEventListener('offline', checkNetworkStatus);
+    </script>
 </body>
 </html>
