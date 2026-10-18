@@ -20,7 +20,7 @@
             flex: 1;
             margin-top: 80px;
             padding: 20px;
-            display: none; /* Скрыто изначально для демонстрации загрузки */
+            display: none; /* Скрыто до завершения анимации линии загрузки */
         }
         h1 {
             font-size: 28px;
@@ -60,7 +60,7 @@
             font-weight: bold;
         }
 
-        /* Анимированный прелоадер */
+        /* Контейнер экрана предзагрузки */
         .loader-container {
             position: fixed;
             top: 0;
@@ -73,72 +73,72 @@
             align-items: center;
             z-index: 9999;
         }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #333;
-            border-top: 5px solid #ff3366;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+
+        /* Горизонтальная линия загрузки */
+        .progress-bar-container {
+            width: 250px;
+            height: 4px;
+            background-color: #2a2a2a;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .progress-line {
+            width: 0%;
+            height: 100%;
+            background-color: #ff3366;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: loadProgress 1.5s ease-in-out forwards;
         }
 
-        footer {
-            padding: 20px;
-            background-color: #1a1a1a;
-            font-size: 14px;
-        }
-        footer a {
-            color: #aaaaaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        footer a:hover {
-            color: #ffffff;
+        /* Анимация заполнения полосы */
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            50% { width: 60%; }
+            100% { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Элемент анимированной загрузки -->
+    <!-- Экран с полосой загрузки -->
     <div class="loader-container" id="loader">
-        <div class="spinner"></div>
+        <div class="progress-bar-container">
+            <div class="progress-line"></div>
+        </div>
     </div>
 
+    <!-- Основной контент страницы -->
     <div class="content" id="main-content">
         <h1>Виртуальная Девушка: ИИ Чат</h1>
         <p id="sub-text">Нажмите на кнопку ниже, чтобы перейти к общению в чате:</p>
         
-        <!-- Сообщение об ошибке (показывается только если нет интернета) -->
+        <!-- Сообщение об ошибке при отсутствии интернета -->
         <div class="error-message" id="network-error">
             ⚠️ Отсутствует подключение к интернету. Проверьте сеть.
         </div>
 
-        <!-- Основная кнопка перехода -->
-        <a href="https://wildgrl.space" class="btn" id="chat-btn" target="_blank">Перейти к персонажу</a>
+        <!-- Основная целевая кнопка -->
+        <a href="https://wildgrl.space/p/x-go6mmb1jg" class="btn" id="chat-btn" target="_blank">Перейти к персонажу</a>
     </div>
 
-    <footer>
-        <a href="#" target="_blank">Политика конфиденциальности</a>
-    </footer>
-
     <script>
-        // Функция скрытия анимации загрузки и проверки сети
+        // Переключение экрана после завершения линии загрузки
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 checkNetworkStatus();
-            }, 1500); // 1.5 секунды анимации загрузки
+            }, 1500); // Таймер совпадает с длительностью анимации полосы загрузки (1.5 сек)
         });
 
         const chatBtn = document.getElementById('chat-btn');
         const errorMsg = document.getElementById('network-error');
         const subText = document.getElementById('sub-text');
 
+        // Логика проверки интернет-соединения
         function checkNetworkStatus() {
             if (navigator.onLine) {
                 chatBtn.style.display = 'inline-block';
@@ -151,7 +151,7 @@
             }
         }
 
-        // Отслеживание изменений статуса сети в реальном времени
+        // Автоматическое отслеживание изменений сети без перезагрузки страницы
         window.addEventListener('online', checkNetworkStatus);
         window.addEventListener('offline', checkNetworkStatus);
     </script>
