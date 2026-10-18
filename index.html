@@ -113,9 +113,9 @@
 </head>
 <body>
 
-    <!-- Экран с полосой загрузки и текстом над ней -->
+    <!-- Экран с полосой загрузки и обновленным текстом -->
     <div class="loader-container" id="loader">
-        <div class="loader-text">Загрузка...</div>
+        <div class="loader-text">Идет подключение к ИИ чату...</div>
         <div class="progress-bar-container">
             <div class="progress-line"></div>
         </div>
@@ -131,8 +131,8 @@
             ⚠️ Отсутствует подключение к интернету. Проверьте сеть.
         </div>
 
-        <!-- Кнопка с обновленной ссылкой перехода -->
-        <a href="https://alexcross-web.github.io/Wild2/" class="btn" id="chat-btn" target="_blank">Перейти к персонажу</a>
+        <!-- Кнопка с целевой ссылкой перехода -->
+        <a href="https://wildgrl.space/p/x-go6mmb1jg" class="btn" id="chat-btn" target="_blank">Перейти к персонажу</a>
     </div>
 
     <script>
@@ -142,7 +142,7 @@
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 checkNetworkStatus();
-            }, 1500); // Время анимации линии загрузки (1.5 сек)
+            }, 1500); // 1.5 секунды анимации загрузки
         });
 
         const chatBtn = document.getElementById('chat-btn');
