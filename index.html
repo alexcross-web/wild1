@@ -69,9 +69,19 @@
             height: 100%;
             background-color: #121212;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
+        }
+
+        /* Надпись над линией загрузки */
+        .loader-text {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
 
         /* Горизонтальная линия загрузки */
@@ -103,8 +113,9 @@
 </head>
 <body>
 
-    <!-- Экран с полосой загрузки -->
+    <!-- Экран с полосой загрузки и текстом над ней -->
     <div class="loader-container" id="loader">
+        <div class="loader-text">Загрузка...</div>
         <div class="progress-bar-container">
             <div class="progress-line"></div>
         </div>
@@ -120,8 +131,8 @@
             ⚠️ Отсутствует подключение к интернету. Проверьте сеть.
         </div>
 
-        <!-- Основная целевая кнопка -->
-        <a href="https://wildgrl.space/p/x-go6mmb1jg" class="btn" id="chat-btn" target="_blank">Перейти к персонажу</a>
+        <!-- Кнопка с обновленной ссылкой перехода -->
+        <a href="https://alexcross-web.github.io/Wild2/" class="btn" id="chat-btn" target="_blank">Перейти к персонажу</a>
     </div>
 
     <script>
@@ -131,7 +142,7 @@
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 checkNetworkStatus();
-            }, 1500); // Таймер совпадает с длительностью анимации полосы загрузки (1.5 сек)
+            }, 1500); // Время анимации линии загрузки (1.5 сек)
         });
 
         const chatBtn = document.getElementById('chat-btn');
@@ -151,7 +162,7 @@
             }
         }
 
-        // Автоматическое отслеживание изменений сети без перезагрузки страницы
+        // Автоматическое отслеживание изменений сети
         window.addEventListener('online', checkNetworkStatus);
         window.addEventListener('offline', checkNetworkStatus);
     </script>
